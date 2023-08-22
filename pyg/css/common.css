@@ -13,7 +13,30 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-w {
+.w {
     width: 1200px;
     margin: 0 auto;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.style_red {
+    color: #c81623;
+}
+
+.shortcut {
+    height: 31px;
+    line-height: 31px;
+    background-color: #f1f1f1;
+    font: 12px/31px 宋体;
+}
+
+.shortcut ul li {
+    float: left;
 }
