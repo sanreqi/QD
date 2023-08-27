@@ -160,8 +160,7 @@
 }
 
 .dropdown .dd {
-    display: none;
-    height: 466px;
+    height: 455px;
     background-color: #c81623;
     margin-top: 2px;
 }
@@ -258,4 +257,11 @@ footer {
 
 .about_us li {
     float: left;
+}
+
+.about_us {
+    display: inline-block;
+    /* width: 1200px; */
+    height: 100px;
+    text-align: center;
 }

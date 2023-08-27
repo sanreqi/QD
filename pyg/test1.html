@@ -9,41 +9,46 @@
     <title>Document</title>
 
     <style>
-        .all {
-            width: 500px;
-            height: 300px;
-            background: #0f0;
+        div.outer {
+            width: 1024px;
+            height: 200px;
+            background-color: #eeeeee;
+            border: 1px solid black;
         }
 
-        .all div {
-            display: inline-block;
-            background: #ff0;
-            vertical-align: bottom;
+        div.inner {
+            line-height: 150px;
+            text-align: center;
         }
 
-        .box1 {
-            font-size: 12px;
+        .text1 {
+            font-size: 2em;
         }
 
-        .box2 {
-            font-size: 18px;
+        .text2 {
+            text-decoration: underline;
+            color: red;
         }
 
-        .box3 {
-            font-size: 26px;
+        span {
+            background-color: skyblue;
         }
 
-        .box4 {
-            font-size: 40px;
+        img {
+            vertical-align: middle;
         }
     </style>
+</head>
 
 <body>
-    <div class="all">
-        <div class="box1">1000phone</div>
-        <div class="box2">meimei</div>
-        <div class="box3">dalian</div>
-        <div class="box4">hahaha</div>
+
+    <div class="outer">
+        <div class="inner">
+            <span>qqxxxjjj</span>
+            <img src="http://climg.mukewang.com/59c21bae000157fa01000059.jpg">
+            <span class="text1">xjCSS层叠样式表xj</span>
+            <span class="text2">xj(Cascading Style Sheets)xj</span>
+        </div>
     </div>
 </body>
 

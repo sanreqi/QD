@@ -1,0 +1,21 @@
+.main {
+    width: 980px;
+    height: 455px;
+    margin-left: 220px;
+}
+
+.focus {
+    float: left;
+    width: 721px;
+    height: 455px;
+    background-color: blue;
+}
+
+.newsflash {
+    width: 251px;
+    height: 455px;
+    float: right;
+    background-color: saddlebrown;
+}
+
+34 132 165
