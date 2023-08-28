@@ -1,0 +1,158 @@
+.w {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    height: 82px;
+    border-bottom: 2px solid #b1191a;
+}
+
+.logo {
+    margin-top: 16px;
+}
+
+.registerarea {
+    margin-top: 22px;
+}
+
+.area_title {
+    height: 42px;
+    padding: 0 10px;
+    line-height: 42px;
+    background-color: #ececec;
+    color: #767676;
+    border: 1px solid #dfdfdf;
+
+}
+
+.area_title h2 {
+    font-size: 18px;
+    font-weight: 400;
+    float: left;
+}
+
+.area_title p {
+    font-size: 14px;
+    float: right
+}
+
+.area_title p a {
+    color: #c81623;
+}
+
+#register_form {
+    width: 700px;
+    margin: 55px auto 0 auto;
+}
+
+#register_form ul li {
+    height: 36px;
+    line-height: 36px;
+}
+
+#register_form input[type=text] {
+    width: 240px;
+    height: 36px;
+    border: 1px solid #999999;
+}
+
+#register_form ul li label {
+    display: inline-block;
+    width: 150px;
+    text-align: right;
+    font-size: 14px;
+    color: #6e6e6e;
+}
+
+#register_form .error {
+    /* margin-left: 5px; */
+    color: #df3033;
+    overflow: hidden;
+}
+
+.error_icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url(../images/error_icon.png) no-repeat;
+    vertical-align: middle;
+    margin: -2px 5px 0 5px;
+    margin-top: -2px;
+}
+
+.line-mobile {
+    margin-bottom: 22px;
+}
+
+.line-captcha {
+    margin-bottom: 22px;
+}
+
+.safe {
+    height: 34px;
+    margin-left: 227px;
+    margin-bottom: 12px;
+    line-height: 34px;
+    font-size: 12px;
+}
+
+.safe em {
+    padding: 0 12px;
+    color: #fff;
+    font-style: normal;
+}
+
+em.ruo {
+    background-color: #de1111;
+}
+
+em.zhong {
+    background-color: #40b83f;
+}
+
+em.qiang {
+    background-color: #f79100;
+}
+
+.agree {
+    margin: 42px 0 50px 150px;
+}
+
+.agree input {
+    vertical-align: middle;
+
+}
+
+.agree a {
+    color: #1ba1e6;
+}
+
+.register-btn {
+    text-align: center;
+}
+
+.register-btn input {
+    padding: 10px 70px;
+    background-color: #c81623;
+    color: #fff;
+}
+
+footer {
+    margin-top: 58px;
+    height: 120px;
+    text-align: center;
+    border-top: 1px solid #dfdfdf;
+    font-size: 12px;
+    color: #666;
+}
+
+.aboutus {
+    margin-top: 24px;
+    margin-bottom: 14px;
+}
+
+.aboutus a {
+    display: inline-block;
+    padding: 0 14px;
+}
