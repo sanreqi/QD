@@ -3,7 +3,166 @@
     margin: 0 auto;
 }
 
+@font-face {
+    font-family: 'iconfont';
+    src: url('../fonts/iconfont.woff2?t=1692608124058') format('woff2'),
+        url('../fonts/iconfont.woff?t=1692608124058') format('woff'),
+        url('../fonts/iconfont.ttf?t=1692608124058') format('truetype');
+}
+
 .shortcut {
     height: 32px;
     background-color: #f1f1f1;
+    line-height: 32px;
+    font-size: 12px;
+}
+
+.style_red1 {
+    color: #cb333b;
+}
+
+.style_red2 {
+    color: #b1191a;
+}
+
+.f-l {
+    float: left;
+}
+
+.f-r {
+    float: right;
+}
+
+.shortcut .f-r ul li {
+    float: left;
+}
+
+.shortcut .f-r ul li a {
+    display: inline-block;
+    padding: 0 15px;
+}
+
+.shortcut .f-r ul li:nth-child(even) {
+    width: 1px;
+    height: 12px;
+    margin-top: 10px;
+    background-color: #666;
+}
+
+.arrow-down::after {
+    content: '\e6fe';
+    font-family: iconfont;
+    margin-left: 8px;
+}
+
+header {
+    position: relative;
+    height: 104px;
+}
+
+.logo img {
+    position: absolute;
+    top: 24px;
+}
+
+.sk-line {
+    position: absolute;
+    left: 185px;
+    top: 39px;
+    width: 1px;
+    height: 26px;
+    background-color: #c81523;
+}
+
+.sk-logo {
+    position: absolute;
+    left: 195px;
+    top: 39px;
+}
+
+.header-bd {
+    left: 348px;
+    top: 24px;
+    position: absolute;
+    width: 537px;
+    height: 35px;
+}
+
+.search input {
+    float: left;
+    width: 455px;
+    height: 35px;
+    border-top: 2px solid #b1191a;
+    border-bottom: 2px solid #b1191a;
+    border-left: 2px solid #b1191a;
+    padding-left: 5px;
+}
+
+.search button {
+    float: left;
+    width: 82px;
+    height: 35px;
+    color: #fff;
+    background-color: #b1191a;
+}
+
+.header-nav {
+    position: absolute;
+    left: 348px;
+    top: 59px;
+    width: 455px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.hotword {
+    height: 30px;
+    line-height: 30px;
+}
+
+.hotword ul li {
+    float: left;
+}
+
+.hotword ul li a {
+    padding: 0 10px;
+}
+
+.shopcar {
+    position: absolute;
+    right: 62px;
+    top: 24px;
+    width: 140px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    background-color: #f7f7f7;
+}
+
+.shopcar::before {
+    content: '\e605';
+    font-family: iconfont;
+    margin-right: 5px;
+    color: #b1191a;
+}
+
+.shopcar::after {
+    content: '\e6ff';
+    font-family: iconfont;
+    margin-left: 20px;
+}
+
+.shopcar em {
+    display: inline-block;
+    position: absolute;
+    left: 98px;
+    top: -8px;
+    height: 16px;
+    padding: 0 5px;
+    line-height: 16px;
+    text-align: center;
+    background-color: #b1191a;
+    font-style: normal;
+    color: #fff;
+    border-radius: 8px 8px 8px 0;
 }
