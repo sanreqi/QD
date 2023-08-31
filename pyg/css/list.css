@@ -267,6 +267,11 @@ nav ul li:last-of-type a::after {
     width: 290px;
     height: 461px;
     margin-right: 13px;
+    border: 1px solid transparent;
+}
+
+.list-item ul li:hover {
+    border: 1px solid #b1191a;
 }
 
 .item-info {
@@ -327,24 +332,6 @@ nav ul li:last-of-type a::after {
     vertical-align: top;
 }
 
-.box1 {
-    display: inline-block;
-    margin-top: 100px;
-    margin-bottom: 1000px;
-    width: 300px;
-    height: 100px;
-    background-color: pink;
-    border: 1px solid #b1191a;
-    /* border-radius: 50px; */
-}
-
-.box2 {
-    display: inline-block;
-    width: 70%;
-    height: 100%;
-    background-color: #f1f1f1;
-}
-
 .item-btn {
     margin-top: 10px;
 }
@@ -355,3 +342,15 @@ nav ul li:last-of-type a::after {
     background-color: #b1191a;
     color: #fff;
 }
+
+.list-item ul li:nth-child(4n) {
+    margin-right: 0;
+}
+
+.list-item ul li:nth-child(n+5) {
+    margin-top: 20px;
+}
+
+/* .list-item ul li:nth-child(4n) {
+    margin-top: 20px;
+} */

@@ -9,45 +9,33 @@
     <title>Document</title>
 
     <style>
-        div.outer {
-            width: 1024px;
-            height: 200px;
-            background-color: #eeeeee;
-            border: 1px solid black;
-        }
+        /* .type_diff:nth-of-type(2) {
+            background: greenyellow;
+        } */
 
-        div.inner {
-            line-height: 150px;
-            text-align: center;
-        }
-
-        .text1 {
-            font-size: 2em;
-        }
-
-        .text2 {
-            text-decoration: underline;
+        .box p:nth-of-type(1) {
             color: red;
-        }
-
-        span {
-            background-color: skyblue;
-        }
-
-        img {
-            vertical-align: middle;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="outer">
-        <div class="inner">
-            <span>qqxxxjjj</span>
-            <img src="http://climg.mukewang.com/59c21bae000157fa01000059.jpg">
-            <span class="text1">xjCSS层叠样式表xj</span>
-            <span class="text2">xj(Cascading Style Sheets)xj</span>
+    <div class="box">
+        <div class="type_diff">type_diff 1</div>
+        <p class="type_diff">type_diff 2</p>
+        <h3 class="type_diff">type_diff 3</h3>
+        <div class="type_diff">type_diff 4</div>
+        <p class="type_diff">type_diff 5</p>
+        <h3 class="type_diff">type_diff 6</h3>
+        <div>
+            <p>nangdayou</p>
+        </div>
+        <div class="type_diff">type_diff 7</div>
+        <p class="type_diff">type_diff 8</p>
+        <h3 class="type_diff">type_diff 9</h3>
+        <div>
+            <p>nangdayou</p>
         </div>
     </div>
 </body>
