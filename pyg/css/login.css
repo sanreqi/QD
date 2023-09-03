@@ -1,0 +1,74 @@
+.w {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+@font-face {
+    font-family: 'iconfont';
+    src: url('../fonts/iconfont.woff2?t=1692608124058') format('woff2'),
+        url('../fonts/iconfont.woff?t=1692608124058') format('woff'),
+        url('../fonts/iconfont.ttf?t=1692608124058') format('truetype');
+}
+
+.f-l {
+    float: left;
+}
+
+.f-r {
+    float: right;
+}
+
+header {
+    position: relative;
+    height: 104px;
+}
+
+.logo img {
+    position: absolute;
+    top: 24px;
+}
+
+.banner {
+    height: 487px;
+    background-color: #7e00ff;
+}
+
+.banner-bd {
+    position: relative;
+    height: 100%;
+}
+
+.banner-img img {
+    position: absolute;
+    left: 100px;
+    top: 32px;
+}
+
+.login-mo {
+    position: absolute;
+    right: 114px;
+    top: 30px;
+    width: 381px;
+    height: 364px;
+    background-color: #fff;
+}
+
+.login-hd {
+    position: relative;
+    height: 65px;
+    font-size: 18px;
+}
+
+.login-hd>div {
+    float: left;
+    height: 65px;
+    line-height: 65px;
+    width: 50%;
+    text-align: center;
+}
+
+.login-mo span {
+    position: absolute;
+    left: 50%;
+    top: 20px;
+}
