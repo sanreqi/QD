@@ -22,31 +22,36 @@
             <div class="banner-img w">
                 <img src="images/login_background.png" alt="">
             </div>
-            <div class="login-mo">
-                <div class="login-hd">
+            <div class="form-mo">
+                <div class="form-hd">
                     <div>扫码登录</div>
                     <div>账户登录</div>
                     <span>|</span>
                 </div>
-                <div class="login-bd">
-                    <div class="login-alert"></div>
+                <div class="form-bd">
+                    <div class="login-alert">公共场所不建议自动登录，以免账号丢失</div>
                     <form action="">
-                        <input type="text" name="" id="">
-                        <input type="text" name="" id="">
-                        <div class="login-choice">
-                            <input type="checkbox">
-                            <span></span>
+                        <div class="inline-account form-inline">
+                            <i></i>
+                            <input placeholder="邮箱/用户名/手机号" type="text" name="account" id="">
                         </div>
-                        <button></button>
+
+                        <div class="inline-password form-inline">
+                            <i></i>
+                            <input placeholder="请输入密码" type="password" name="password" id="">
+                        </div>
+
+                        <div class="login-choice">
+                            <input type="checkbox" name="auto-login">自动登录
+                            <a href="#">忘记密码</a>
+                        </div>
+                        <button>登录</button>
                     </form>
                     <div class="login-footer">
-                        <ul>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                        </ul>
+                        <img src="images/login_footer_icon.png" alt="">
+                        <a href="#">立即注册</a>
+
+
                     </div>
                 </div>
             </div>
@@ -54,7 +59,27 @@
 
 
     </div>
-    <footer></footer>
+
+    <footer>
+        <div class="company-info w">
+            <p>
+                <a href="#">关于我们</a> |
+                <a href="#">联系我们</a> |
+                <a href="#">联系客服</a> |
+                <a href="#">商家入驻</a> |
+                <a href="#">营销中心</a> |
+                <a href="#">手机品优购</a> |
+                <a href="#">友情链接</a> |
+                <a href="#">销售联盟</a> |
+                <a href="#">品优购社区</a> |
+                <a href="#">品优购公益</a> |
+                <a href="#">English Site</a> |
+                <a href="#">Contact U</a>
+            </p>
+            <p>地址：北京市昌平区建材城西路金燕龙办公楼一层 邮编：100096 电话：400-618-4000 传真：010-82935100 邮箱: zhanghj+itcast.cn</p>
+            <p>京ICP备08001421号京公网安备110108007702</p>
+        </div>
+    </footer>
 </body>
 
 </html>
