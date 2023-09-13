@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="t2.js"></script>
+
+    <style>
+        h2 {
+            text-align: center;
+        }
+
+        .content {
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .content span {
+            color: red;
+        }
+
+        .btns {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .btns button {
+            width: 60px;
+            height: 30px;
+            margin-left: 30px
+        }
+    </style>
+</head>
+
+
+
+<body>
+    <h2>随机点名</h2>
+
+    <div class="content">
+        名字是：<span>这里显示姓名</span>
+    </div>
+    <div class="btns">
+        <button id="start">开始</button>
+        <button id="finish">结束</button>
+    </div>
+</body>
+
+<script>
+    const names = ['张三', '李四', '王五', '赵六', '周七', '钱八']
+    const t = document.querySelector('.content span')
+    let i = 0
+
+    const start = document.querySelector('#start');
+    const finish = document.querySelector('#finish');
+    let s
+
+    start.addEventListener('click', function () {
+        s = setInterval(function () {
+            t.innerHTML = names[i]
+            i++
+            if (i >= names.length) {
+                i = 0
+            }
+        }, 35)
+    })
+
+    finish.addEventListener('click', function () {
+        clearInterval(s)
+    })
+
+
+</script>
+
+</html>

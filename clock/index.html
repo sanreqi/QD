@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .clock {
+            margin: 50px auto;
+            position: relative;
+            width: 600px;
+            height: 600px;
+            background: url(clock.jpg) no-repeat;
+        }
+
+        .hh,
+        .mm,
+        .ss {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+
+        }
+
+        .hh {
+            background: url(hour.png) no-repeat center;
+        }
+
+        .mm {
+            background: url(minute.png) no-repeat center;
+        }
+
+        .ss {
+            background: url(second.png) no-repeat center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="clock">
+        <div class="hh" id="h"></div>
+        <div class="mm" id="m"></div>
+        <div class="ss" id="s"></div>
+    </div>
+
+    <script>
+        let d
+        let sdeg
+        let hdeg
+
+        setInterval(function () {
+            d = new Date()
+            let hour = d.getHours()
+            let minute = d.getMinutes()
+            let second = d.getSeconds()
+            console.log(second);
+            sdeg = second / 60 * 360
+            //秒走60 分走1
+            mdeg = minute / 60 * 360 + sdeg / 60
+            //分走60 时走5
+            hdeg = hour / 12 * 360 + mdeg / 12
+            document.querySelector('#s').style.transform = `rotate(${sdeg}deg)`
+            document.querySelector('#m').style.transform = `rotate(${mdeg}deg)`
+            document.querySelector('#h').style.transform = `rotate(${hdeg}deg)`
+        }, 1000)
+
+    </script>
+</body>
+
+</html>
