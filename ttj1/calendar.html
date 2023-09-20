@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    body {
+      font-family: Verdana, sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    a {
+      text-decoration: none;
+
+    }
+
+    .w {
+      width: 600px;
+      margin: 20px auto;
+    }
+
+    .month {
+      position: relative;
+      width: 600px;
+      height: 150px;
+      background-color: #1abc9c;
+      color: #fff;
+    }
+
+    .month p {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      text-align: center;
+      letter-spacing: 3px;
+    }
+
+    .weekday {
+      width: 600px;
+      background-color: #ddd;
+    }
+
+    .weekday ul {
+      display: flex;
+    }
+
+    .weekday ul li {
+      padding: 14px 0;
+      color: #666;
+      flex: 0.142857;
+      text-align: center;
+    }
+
+    .day {
+      width: 100%;
+      background-color: #eee;
+    }
+
+    .day ul {
+      overflow: hidden;
+      clear: both;
+      padding-bottom: 30px;
+    }
+
+
+    .day ul li {
+      float: left;
+      padding: 8px;
+      text-align: center;
+      color: #777;
+      width: 14.2857%;
+    }
+
+    .prev {
+      position: absolute;
+      top: 50%;
+      left: 8px;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: #fff;
+    }
+
+    .next {
+      color: #fff;
+      position: absolute;
+      top: 50%;
+      right: 8px;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="w">
+    <h2>calendar</h2>
+
+    <div class="month">
+      <p>
+        <span class="yearval"></span>
+        <br />
+        <span class="monthval"></span>
+      </p>
+      <!-- <p>August<br>2015</p> -->
+      <a class="prev" href="#">&lt;</a>
+      <a class="next" href="#">&gt;</a>
+    </div>
+    <div class="weekday">
+      <ul>
+        <li>MO</li>
+        <li>TU</li>
+        <li>WE</li>
+        <li>TH</li>
+        <li>FR</li>
+        <li>SA</li>
+        <li>SU</li>
+      </ul>
+    </div>
+
+    <div class="day">
+      <ul>
+
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    let date = new Date();
+
+    let year = date.getFullYear();
+    let month = date.getMonth();
+    const monthEngArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+    showMonth(year, month);
+
+    function showMonth(year, month) {
+      let lastDay;
+      let firstWeekDay;
+      let dayUl;
+
+      document.querySelector(".yearval").innerHTML = year;
+      document.querySelector(".monthval").innerHTML = monthEngArr[month];
+
+      date.setFullYear(year, month + 1, 0);
+      lastDay = date.getDate();
+
+      date.setFullYear(year, month, 1);
+      firstWeekDay = date.getDay();
+
+      dayUl = document.querySelector(".day ul");
+
+      //空li
+      for (let i = 1; i < firstWeekDay; i++) {
+        let li = document.createElement("LI");
+        dayUl.appendChild(li);
+      }
+      for (let i = 1; i <= lastDay; i++) {
+        let li = document.createElement("LI");
+        li.innerHTML = i;
+        dayUl.appendChild(li);
+      }
+    }
+
+    document.querySelector(".prev").addEventListener("click", function () {
+      let lis = document.querySelectorAll(".day ul li");
+      for (let i = 0; i < lis.length; i++) {
+        lis[i].remove();
+      }
+
+      month--;
+      if (month < 0) {
+        month = 11;
+        year--;
+      }
+
+      showMonth(year, month);
+    });
+
+    document.querySelector(".next").addEventListener("click", function () {
+      let lis = document.querySelectorAll(".day ul li");
+      for (let i = 0; i < lis.length; i++) {
+        lis[i].remove();
+      }
+
+      month++;
+      if (month > 11) {
+        month = 0;
+        year++;
+      }
+
+      showMonth(year, month);
+    });
+
+
+  </script>
+</body>
+
+</html>

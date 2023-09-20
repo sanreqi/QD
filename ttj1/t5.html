@@ -61,39 +61,46 @@ https://c.runoob.com/wp-content/uploads/2017/01/img_fjords_wide.jpg -->
       position: relative;
       display: flex;
       justify-content: center;
-      /* margin-left: -20px; */
-      /* transform: translateX(-50%); */
+      margin-left: -20px;
     }
 
     #main .indicator ul li {
-      width: 8px;
-      height: 8px;
-      border-radius: 4px;
-      background-color: #fff;
+      width: 16px;
+      height: 16px;
+      border-radius: 8px;
+      background-color: #bbb;
       margin: 0 5px;
+    }
+
+    .active {
+      background-color: #717171 !important;
     }
   </style>
 </head>
 
 <body>
   <div id="main">
-    <img src="https://c.runoob.com/wp-content/uploads/2017/01/img_nature_wide.jpg" alt="">
+    <div class="slider-item">
+      <img src="https://c.runoob.com/wp-content/uploads/2017/01/img_nature_wide.jpg" alt="">
+    </div>
+
     <span class="prev">&lt;</span>
     <span class="next">&gt;</span>
     <div class="indicator">
       <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li id="aaabbb" class="active cc"></li>
         <li></li>
         <li></li>
       </ul>
     </div>
   </div>
 
+
+  <!-- background-color 0.6s ease
+  background-color 0.6s ease
+
+  
+  #bbb -->
 
   <script>
     const images = [
@@ -110,6 +117,24 @@ https://c.runoob.com/wp-content/uploads/2017/01/img_fjords_wide.jpg -->
         'title': 'fjords'
       },
     ]
+
+    let activeIndex = 0;
+    let lis = document.querySelectorAll(".indicator ul li")
+    let len = lis.length;
+    slide();
+
+    function slide() {
+      document.querySelector(".slider-item img").src = images[activeIndex].url;
+      document.querySelector("li.active").classList.remove("active");
+      let dotIndex = activeIndex + 1;
+      document.querySelector(`.indicator ul>li:nth-child(${dotIndex})`).classList.add("active");
+      activeIndex++;
+      if (activeIndex >= len) {
+        activeIndex = 0;
+      }
+
+      setTimeout(slide, 1000)
+    }
   </script>
 </body>
 
