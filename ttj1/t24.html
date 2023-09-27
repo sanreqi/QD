@@ -76,10 +76,6 @@
       opacity: 0;
     }
 
-    /* #dot361 ul li:hover {
-      opacity: 0.8;
-    } */
-
     /* todo 写到js */
     #piece ul li {
       position: absolute;
@@ -126,13 +122,13 @@
 
       //单元格长度
       const cellSize = 30;
-      //1-black 2-white
-      let turn = 1;
+
+      let turn = 'black';
 
       const goConfig =
       {
-        1: { 'class': 'black' },
-        2: { 'class': 'white' }
+        black: { 'class': 'black' },
+        white: { 'class': 'white' }
       };
 
       //x_y坐标对象数组
@@ -209,7 +205,7 @@
             let goKey = x + '_' + y;
             // 先判断
             if (!checkExists(x, y)) {
-              console.log('已经存在棋子');
+              // console.log('已经存在棋子');
               return false;
             }
 
@@ -227,18 +223,32 @@
             // goList.push(goItem);
             ul.append(li);
             //黑白转换
-            turn = 3 - turn;
+            let type = changeTurn();
 
-            console.log(goList);
+            findBehind(x, y, type);
+
+            console.log(blockGo);
+            // console.log(turn);
+
+            // console.log(goList);
           });
         }
+      }
+
+      function changeTurn(change = true) {
+        let t = turn === 'black' ? 'white' : 'black';
+        if (change) {
+          turn = t;
+        }
+
+        return t;
       }
 
       //判断坐标是否存在，存在返回下标
       function checkExists(x, y) {
         let goKey = x + '_' + y;
         if (goList.hasOwnProperty(goKey)) {
-          console.log('已经存在棋子');
+          // console.log('已经存在棋子');
           return false;
         }
 
@@ -253,7 +263,7 @@
             let y = this.getAttribute('y');
             // 先判断
             if (!checkExists(x, y)) {
-              console.log('已经存在棋子');
+              // console.log('已经存在棋子');
               return false;
             }
             this.style.opacity = 0.8;
@@ -264,6 +274,45 @@
           }
         }
       }
+
+      let blockGo = [];
+
+      function findBehind(x, y, type) {
+        findBlock(x - 1, y);
+      }
+
+      //从xy找到所有连在一起的，递归
+      function findBlock(x, y, type) {
+        if (!checkExists(x, y)) {
+          console.log('sss', x, y);
+          return [];
+        }
+
+        //check valid
+
+        let goKey = x + '_' + y;
+        console.log(goKey);
+        console.log(goList);
+        if (goList.hasOwnProperty(goKey) && goList[goKey].class === type) {
+          console.log(1234);
+          blockGo.push = goKey;
+          findBlock(x - 1, y); //左
+          findBlock(x, y + 1); //上
+          findBlock(x + 1, y); //右
+          findBlock(x, y - 1); //下
+        }
+
+        return [];
+      }
+
+      function checkLocValid(x, y) {
+        if (x < 0 || x >= 19 || y < 0 || y >= 19) {
+          return false;
+        }
+
+        return true;
+      }
+
 
     </script>
   </div>
