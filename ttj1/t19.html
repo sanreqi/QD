@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    .wrapper {
+      width: 840px;
+      height: 420px;
+      background: url(../images/bg01.jpg) no-repeat center/cover;
+      padding: 80px 240px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <h1>一等奖：<span></span></h1>
+    <h3>二等奖：<span></span></h3>
+    <h4>三等奖：<span></span></h4>
+  </div>
+
+  <script>
+    const names = ['张三', '李四', '王五', '赵六', '李七', '周八', '朱九'];
+    const tmpNames = names;
+    let award = []; //获奖人员
+    for (let i = 0; i < 3; i++) {
+      let rand = randNumber(tmpNames.length)
+      //splice删除
+      let awardName = tmpNames.splice(rand, 1)[0];
+      award.push(awardName);
+    }
+
+    document.querySelector('.wrapper h1 span').innerHTML = award[2];
+    document.querySelector('.wrapper h3 span').innerHTML = award[1];
+    document.querySelector('.wrapper h4 span').innerHTML = award[0];
+
+    function randNumber(arrLen) {
+      //0~arrLen - 1;
+      return Math.floor(Math.random() * arrLen)
+    }
+
+  </script>
+</body>
+
+</html>

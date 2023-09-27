@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: blanchedalmond;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .wq {
+      width: 800px;
+      margin: 50px auto;
+    }
+
+    #wq-table {
+      background-color: blanchedalmond;
+      display: table;
+      position: relative;
+      border-collapse: collapse;
+    }
+
+    .row {
+      display: table-row;
+      border-collapse: collapse;
+    }
+
+    .cell {
+      display: table-cell;
+      width: 30px;
+      height: 30px;
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+
+    /* todo 写到js */
+    #nine-dot ul li {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 7px;
+      background-color: black;
+      transform: translate(-50%, -50%);
+    }
+
+    /* todo 写到js */
+    #dot361 ul li {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 30px;
+      height: 30px;
+      transform: translate(-50%, -50%);
+      padding: 5px;
+      background-color: white;
+      opacity: 0;
+    }
+
+    /* #dot361 ul li:hover {
+      opacity: 0.8;
+    } */
+
+    /* todo 写到js */
+    #piece ul li {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      border-radius: 13px;
+      transform: translate(-50%, -50%);
+    }
+
+    .black {
+      background-color: black;
+    }
+
+    .white {
+      background-color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wq">
+    <div id="wq-table">
+      <div id="board-line">
+
+      </div>
+
+      <!-- 9个小黑点 -->
+      <div id="nine-dot">
+      </div>
+
+      <div id="dot361">
+
+      </div>
+
+      <div id="piece">
+        <ul>
+        </ul>
+      </div>
+    </div>
+
+
+    <script>
+      window.onload = initTable;
+
+      //单元格长度
+      const cellSize = 30;
+      //1-black 2-white
+      let turn = 1;
+
+      const goConfig =
+      {
+        1: { 'class': 'black' },
+        2: { 'class': 'white' }
+      };
+
+      //x_y坐标对象数组
+      let goList = {};
+
+      function initTable() {
+        createTable();
+        createNineDot();
+        createDot361();
+        dotHover();
+        go();
+      }
+
+      function createTable() {
+        const wqTable = document.getElementById('board-line');
+        let wqTableStr = '';
+
+        for (let i = 0; i < 18; i++) {
+          wqTableStr += '<ul class="row">';
+          for (let j = 0; j < 18; j++) {
+            wqTableStr += '<li class="cell"></li>';
+          }
+          wqTableStr += '</ul>';
+        }
+        wqTable.innerHTML = wqTableStr;
+      }
+
+      function createNineDot() {
+        const nineDotArr = [cellSize * 3, cellSize * 9, cellSize * 15];
+        const nineDot = document.getElementById('nine-dot');
+        const ul = document.createElement('UL');
+        nineDot.append(ul);
+
+        for (let i = 0; i < 3; i++) {
+          for (let j = 0; j < 3; j++) {
+            let li = document.createElement('LI');
+            li.style.left = `${nineDotArr[i]}px`;
+            li.style.top = `${nineDotArr[j]}px`;
+            ul.append(li);
+          }
+        }
+      }
+
+      function createDot361() {
+        const dot361 = document.getElementById('dot361');
+        const ul = document.createElement('UL');
+        dot361.append(ul);
+
+        let left;
+        let top;
+        for (let i = 0; i < 19; i++) {
+          for (let j = 0; j < 19; j++) {
+            left = cellSize * i;
+            top = cellSize * j
+
+            let li = document.createElement('LI');
+            li.style.left = `${left}px`;
+            li.style.top = `${top}px`;
+            li.setAttribute('x', i);
+            li.setAttribute('y', j);
+            ul.append(li);
+          }
+        }
+      }
+
+      function go() {
+        const dot = document.querySelectorAll('#dot361 ul li');
+        const ul = document.querySelector('#piece ul');
+
+        for (let i = 0; i < dot.length; i++) {
+          dot[i].addEventListener('click', function () {
+            let x = this.getAttribute('x');
+            let y = this.getAttribute('y');
+            let goKey = x + '_' + y;
+            // 先判断
+            if (!checkExists(x, y)) {
+              console.log('已经存在棋子');
+              return false;
+            }
+
+            let li = document.createElement('LI');
+            let config = goConfig[turn];
+            let left = cellSize * x;
+            let top = cellSize * y;
+
+            goList[goKey] = { x: x, y: y, 'class': config.class };
+
+            li.classList.add(config.class);
+            li.style.left = `${left}px`;
+            li.style.top = `${top}px`;
+
+            // goList.push(goItem);
+            ul.append(li);
+            //黑白转换
+            turn = 3 - turn;
+
+            console.log(goList);
+          });
+        }
+      }
+
+      //判断坐标是否存在，存在返回下标
+      function checkExists(x, y) {
+        let goKey = x + '_' + y;
+        if (goList.hasOwnProperty(goKey)) {
+          console.log('已经存在棋子');
+          return false;
+        }
+
+        return true;
+      }
+
+      function dotHover(ele, fn1, fn2) {
+        const dot = document.querySelectorAll('#dot361 ul li');
+        for (let i = 0; i < dot.length; i++) {
+          dot[i].onmouseenter = function () {
+            let x = this.getAttribute('x');
+            let y = this.getAttribute('y');
+            // 先判断
+            if (!checkExists(x, y)) {
+              console.log('已经存在棋子');
+              return false;
+            }
+            this.style.opacity = 0.8;
+            this.style.backgroundColor = goConfig[turn].class;
+          }
+          dot[i].onmouseleave = function () {
+            this.style.opacity = 0;
+          }
+        }
+      }
+
+    </script>
+  </div>
+</body>
+
+</html>

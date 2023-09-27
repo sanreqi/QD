@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    .slider {
+      width: 976px;
+      margin: 50px auto;
+    }
+
+    .slider-wrapper {
+      width: 976px;
+      height: 550px;
+    }
+
+    .slider-wrapper img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .slider-footer {
+      width: 976px;
+      height: 80px;
+      background-color: rgb(100, 67, 68);
+      padding: 12px 12px 0 12px;
+      color: #fff;
+      position: relative;
+    }
+
+    .prev,
+    .next {
+      width: 24px;
+      height: 24px;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .next {
+      position: absolute;
+      right: 12px;
+      top: 16px;
+    }
+
+    .prev {
+      position: absolute;
+      right: 48px;
+      top: 16px;
+    }
+
+    .slider-footer .toggle button:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .slider-indicator {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .slider-indicator li {
+      width: 8px;
+      height: 8px;
+      background-color: #fff;
+      opacity: 0.4;
+      margin-right: 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .slider-indicator li.active {
+      width: 12px;
+      height: 12px;
+      border-radius: 6px;
+      opacity: 1;
+    }
+  </style>
+
+</head>
+
+
+<body>
+  <div class="slider">
+    <div class="slider-wrapper"><img src="../images/slider01.jpg" alt=""></div>
+    <div class="slider-footer">
+      <p class="toggle">对人类来说会不会太超前了？</p>
+      <ul class="slider-indicator">
+        <li class="active"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <button class="prev">&lt;</button>
+      <button class="next">&gt;</button>
+    </div>
+  </div>
+
+  <script>
+    const sliderData = [
+      { url: '../images/slider01.jpg', title: '对人类来说会不会太超前了？', color: 'rgb(100, 67, 68)' },
+      { url: '../images/slider02.jpg', title: '开启剑与雪的黑暗传说！', color: 'rgb(43, 35, 26)' },
+      { url: '../images/slider03.jpg', title: '真正的jo厨出现了！', color: 'rgb(36, 31, 33)' },
+      { url: '../images/slider04.jpg', title: '李玉刚：让世界通过B站看到东方大国文化', color: 'rgb(139, 98, 66)' },
+      { url: '../images/slider05.jpg', title: '快来分享你的寒假日常吧~', color: 'rgb(67, 90, 92)' },
+      { url: '../images/slider06.jpg', title: '哔哩哔哩小年YEAH', color: 'rgb(166, 131, 143)' },
+      { url: '../images/slider07.jpg', title: '一站式解决你的电脑配置问题！！！', color: 'rgb(53, 29, 25)' },
+      { url: '../images/slider08.jpg', title: '谁不想和小猫咪贴贴呢！', color: 'rgb(99, 72, 114)' },
+    ];
+
+    let index = 0;
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+
+    prevBtn.addEventListener('click', function () {
+      index--;
+      slide();
+    });
+
+    nextBtn.addEventListener('click', function () {
+      index++;
+      slide();
+    });
+
+    function slide() {
+      if (index >= sliderData.length || index <= 0) {
+        index = 0;
+      }
+      let liIndex = index + 1;
+      const img = document.querySelector('.slider-wrapper img');
+      const footer = document.querySelector('.slider-footer');
+      const p = document.querySelector('.toggle');
+
+      img.src = sliderData[index].url;
+      p.innerText = sliderData[index].title;
+      footer.style.backgroundColor = sliderData[index].color;
+
+      document.querySelector('li.active').classList.remove('active');
+      document.querySelector(`ul>li:nth-child(${liIndex})`).classList.add('active');
+    }
+
+    setInterval(function () {
+      index++;
+      slide();
+    }, 1000);
+  </script>
+</body>
+
+</html>

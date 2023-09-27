@@ -6,286 +6,315 @@
 <html lang="zh-CN" style="height: 100%">
 
 <head>
-    <meta charset="utf-8">
+  <meta charset="utf-8">
 </head>
 
 <body style="height: 100%; margin: 0">
-    <div id="container" style="height: 100%"></div>
+  <div id="container" style="height: 100%"></div>
 
 
-    <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
-    <!-- Uncomment this line if you want to dataTool extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <!-- Uncomment this line if you want to dataTool extension
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/extension/dataTool.min.js"></script>
   -->
-    <!-- Uncomment this line if you want to use gl extension
+  <!-- Uncomment this line if you want to use gl extension
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
   -->
-    <!-- Uncomment this line if you want to echarts-stat extension
+  <!-- Uncomment this line if you want to echarts-stat extension
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
   -->
-    <!-- Uncomment this line if you want to use map
+  <!-- Uncomment this line if you want to use map
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
   -->
-    <!-- Uncomment these two lines if you want to use bmap extension
+  <!-- Uncomment these two lines if you want to use bmap extension
   <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/extension/bmap.min.js"></script>
   -->
 
-    <script type="text/javascript">
-        var dom = document.getElementById('container');
-        var myChart = echarts.init(dom, null, {
-            renderer: 'canvas',
-            useDirtyRect: false
-        });
-        var app = {};
+  <script type="text/javascript">
 
-        var option;
+    //http://smb.soweather.com:5678/smb/Home/WeatherServiceFiveDay?stationid=58367
+    const weatherJsonData = '[{"id":"1262692","stationid":"58367 ","longitude":"","latitude":"","ftype":"pwsctenday","hours":"0","maxtemp":"24","mintepm":"20","weather":"阵雨","wind":"东北风","windspeed":"3-4级","updatetime":"2023-9-22 10:46:47","datatime":"2023-9-22 10:00:00","foretime":"2023-9-22 0:00:00","humidity":"","weathernight":"雷阵雨","waterprobability":"80","cityname":"","altitude":"","wind2":"","windspeed2":"","mintemp":"20","datatimes":"2023-09-22 10:00","weather2":"雷阵雨","weathers":"zhenyu","weathernights":"leizhenyu","week":"星期五","weathertitle":"阵雨","weathernighttitle":"雷阵雨"},{"id":"1262693","stationid":"58367 ","longitude":"","latitude":"","ftype":"pwsctenday","hours":"24","maxtemp":"24","mintepm":"21","weather":"阴","wind":"东北风","windspeed":"3-4级","updatetime":"2023-9-22 10:46:47","datatime":"2023-9-22 10:00:00","foretime":"2023-9-23 0:00:00","humidity":"","weathernight":"雷阵雨","waterprobability":"80","cityname":"","altitude":"","wind2":"","windspeed2":"","mintemp":"21","datatimes":"2023-09-22 10:00","weather2":"雷阵雨","weathers":"yin","weathernights":"leizhenyu","week":"星期六","weathertitle":"阴","weathernighttitle":"雷阵雨"},{"id":"1262694","stationid":"58367 ","longitude":"","latitude":"","ftype":"pwsctenday","hours":"48","maxtemp":"27","mintepm":"22","weather":"阵雨","wind":"东北风","windspeed":"4-5级","updatetime":"2023-9-22 10:46:47","datatime":"2023-9-22 10:00:00","foretime":"2023-9-24 0:00:00","humidity":"","weathernight":"多云","waterprobability":"70","cityname":"","altitude":"","wind2":"","windspeed2":"","mintemp":"22","datatimes":"2023-09-22 10:00","weather2":"多云","weathers":"zhenyu","weathernights":"duoyun","week":"星期日","weathertitle":"阵雨","weathernighttitle":"多云"},{"id":"1262695","stationid":"58367 ","longitude":"","latitude":"","ftype":"pwsctenday","hours":"72","maxtemp":"31","mintepm":"24","weather":"多云","wind":"偏东风","windspeed":"3-4级","updatetime":"2023-9-22 10:46:47","datatime":"2023-9-22 10:00:00","foretime":"2023-9-25 0:00:00","humidity":"","weathernight":"雷阵雨","waterprobability":"60","cityname":"","altitude":"","wind2":"","windspeed2":"","mintemp":"24","datatimes":"2023-09-22 10:00","weather2":"雷阵雨","weathers":"duoyun","weathernights":"leizhenyu","week":"星期一","weathertitle":"多云","weathernighttitle":"雷阵雨"},{"id":"1262696","stationid":"58367 ","longitude":"","latitude":"","ftype":"pwsctenday","hours":"96","maxtemp":"32","mintepm":"26","weather":"多云","wind":"偏东风","windspeed":"3-4级","updatetime":"2023-9-22 10:46:47","datatime":"2023-9-22 10:00:00","foretime":"2023-9-26 0:00:00","humidity":"","weathernight":"雷阵雨","waterprobability":"60","cityname":"","altitude":"","wind2":"","windspeed2":"","mintemp":"26","datatimes":"2023-09-22 10:00","weather2":"雷阵雨","weathers":"duoyun","weathernights":"leizhenyu","week":"星期二","weathertitle":"多云","weathernighttitle":"雷阵雨"}]';
+    const weatherData = JSON.parse(weatherJsonData);
+    const imageData = {
+      "晴": { name: "晴", url: "https://d.scggqx.com/forecast/img/晴.png" },
+      "阴": { name: "阴", url: "https://d.scggqx.com/forecast/img/阴.png" },
+      "小雨": { name: "小雨", url: "https://d.scggqx.com/forecast/img/小雨.png" },
+      "中雨": { name: "中雨", url: "https://d.scggqx.com/forecast/img/中雨.png" },
+      "大雨": { name: "大雨", url: "https://d.scggqx.com/forecast/img/大雨.png" },
+      "雷阵雨": { name: "雷阵雨", url: "https://d.scggqx.com/forecast/img/雷阵雨.png" },
+      "多云": { name: "多云", url: "https://d.scggqx.com/forecast/img/多云.png" },
+      "阵雨": { name: "666", url: "https://d.scggqx.com/forecast/img/阵雨.png" },
+    };
 
-        option = {
-            grid: {
-                show: true,
-                backgroundColor: 'transparent',
-                opacity: 0.3,
-                borderWidth: '0',
-                top: '180',
-                bottom: '0'
+    console.log(weatherData);
+
+    let imgs = [];
+    let weekDays = [];
+    let weathers = [];
+    let highestTemps = [];
+    let lowestTmpes = [];
+    let richs = {};
+
+    for (let i = 0; i < weatherData.length; i++) {
+      let imgUrl;
+      let wd = weatherData[i];
+      weathers[i] = wd.weather;
+      weekDays[i] = wd.week;
+      highestTemps[i] = wd.maxtemp;
+      lowestTmpes[i] = wd.mintemp;
+
+      if (imageData.hasOwnProperty(weathers[i])) {
+        imgUrl = imageData[weathers[i]].url;
+        weathers[i] = imageData[weathers[i]].name;
+      } else {
+        imgUrl = "https://d.scggqx.com/forecast/img/晴.png";
+      }
+
+      // richs.i = {};
+      // richs[i] = { backgroundColor: { image: imgUrl } }
+      // richs[i].height = 100;
+      // richs[i].width = 100;
+      // richs[i].style = { color: "#000" };
+    }
+
+    // richs[0] = { color: 'green' };
+    richs.b = { fontSize: 12, lineHeight: 100, height: 100, color: 'red' };
+
+    // richs[5].b = { fontSize: 12, lineHeight: 100, height: 100, color: 'red' };
+    // console.log(richs);
+
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var app = {};
+
+    var option;
+
+    option = {
+      grid: {
+        show: true,
+        backgroundColor: 'transparent',
+        opacity: 0.3,
+        borderWidth: '0',
+        top: '180',
+        bottom: '0'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        show: false
+      },
+      xAxis: [
+        // 日期
+        {
+          type: 'category',
+          boundaryGap: false,
+          position: 'top',
+          offset: 130,
+          zlevel: 100,
+          axisLine: {
+            show: false
+          },
+          axisTick: {
+            show: false
+          },
+          axisLabel: {
+            interval: 0,
+            formatter: [
+              '{a|{value}}'
+            ].join('\n'),
+            rich: {
+              a: {
+                // color: 'white',
+                fontSize: 18
+              }
+            }
+          },
+          nameTextStyle: {
+
+
+          },
+          data: weekDays
+          // data: ["14时", "15时", "16时", "17时", "18时", "19时", "20时"]
+
+        },
+
+
+        // 天气图标
+        {
+          type: 'category',
+          boundaryGap: false,
+          position: 'top',
+          offset: 20,
+          zlevel: 100,
+          axisLine: {
+            show: false
+          },
+          axisTick: {
+            show: false
+          },
+          axisLabel: {
+            interval: 0,
+            formatter: function (value, index) {
+              return '{' + index + '| }\n{b|' + value + '}'
             },
-            tooltip: {
-                trigger: 'axis'
-            },
-            legend: {
-                show: false
-            },
-            xAxis: [
-                // 日期
-                {
-                    type: 'category',
-                    boundaryGap: false,
-                    position: 'top',
-                    offset: 130,
-                    zlevel: 100,
-                    axisLine: {
-                        show: false
-                    },
-                    axisTick: {
-                        show: false
-                    },
-                    axisLabel: {
-                        interval: 0,
-                        formatter: [
-                            '{a|{value}}'
-                        ].join('\n'),
-                        rich: {
-                            a: {
-                                // color: 'white',
-                                fontSize: 18
-                            }
-                        }
-                    },
-                    nameTextStyle: {
-
-                    },
-                    data: ["14时", "15时", "16时", "17时", "18时", "19时", "20时"]
-                },
-                {
-                    type: 'category',
-                    boundaryGap: false,
-                    position: 'asdsa',
-                    offset: 130,
-                    zlevel: 100,
-                    axisLine: {
-                        show: false
-                    },
-                    axisTick: {
-                        show: false
-                    },
-                    // axisLabel: {
-                    //     interval: 0,
-                    //     formatter: [
-                    //         '{a|{value}}'
-                    //     ].join('\n'),
-                    //     rich: {
-                    //         a: {
-                    //             // color: 'white',
-                    //             fontSize: 18
-                    //         }
-                    //     }
-                    // },
-                    nameTextStyle: {
-
-                    },
-                    data: ["123", "432", "432", "17时", "18时", "19时", "20时"]
-                },
-
-
-                // 天气图标
-                {
-                    type: 'category',
-                    boundaryGap: false,
-                    position: 'top',
-                    offset: 20,
-                    zlevel: 100,
-                    axisLine: {
-                        show: false
-                    },
-                    axisTick: {
-                        show: false
-                    },
-                    axisLabel: {
-                        interval: 0,
-                        formatter: function (value, index) {
-                            return '{' + index + '| }\n{b|' + value + '}'
-                        },
-                        rich: {
-                            0: {
-                                backgroundColor: {
-                                    // image: require('@/assets/weather_icon/' + this.weatherIconDic[this.weatherdata.weather[0]] + '.png')
-                                    image: 'https://d.scggqx.com/forecast/img/小雨.png'
-                                },
-                                height: 40,
-                                width: 40
-                            },
-                            1: {
-                                backgroundColor: {
-                                    // image: require('@/assets/weather_icon/' + this.weatherIconDic[this.weatherdata.weather[1]] + '.png')
-                                    image: 'https://d.scggqx.com/forecast/img/小雨.png'
-                                },
-                                height: 40,
-                                width: 40
-                            },
-                            2: {
-                                backgroundColor: {
-                                    // image: require('@/assets/weather_icon/' + this.weatherIconDic[this.weatherdata.weather[2]] + '.png')
-                                    image: 'https://d.scggqx.com/forecast/img/阴.png'
-                                },
-                                height: 40,
-                                width: 40
-                            },
-                            3: {
-                                backgroundColor: {
-                                    // image: require('@/assets/weather_icon/' + this.weatherIconDic[this.weatherdata.weather[3]] + '.png')
-                                    image: 'https://d.scggqx.com/forecast/img/小雨.png'
-                                },
-                                height: 40,
-                                width: 40
-                            },
-                            4: {
-                                backgroundColor: {
-                                    // image: require('@/assets/weather_icon/' + this.weatherIconDic[this.weatherdata.weather[4]] + '.png')
-                                    image: 'https://d.scggqx.com/forecast/img/多云.png'
-                                },
-                                height: 40,
-                                width: 40
-                            },
-                            5: {
-                                backgroundColor: {
-                                    // image: require('@/assets/weather_icon/' + this.weatherIconDic[this.weatherdata.weather[5]] + '.png')
-                                    image: 'https://d.scggqx.com/forecast/img/小雨.png'
-                                },
-                                height: 40,
-                                width: 40
-                            },
-                            6: {
-                                backgroundColor: {
-                                    // image: require('@/assets/weather_icon/' + this.weatherIconDic[this.weatherdata.weather[6]] + '.png')
-                                    image: 'https://d.scggqx.com/forecast/img/小雨.png'
-                                },
-                                height: 40,
-                                width: 40
-                            },
-                            b: {
-                                // color: 'white',
-                                fontSize: 12,
-                                lineHeight: 30,
-                                height: 20
-                            }
-                        }
-                    },
-                    nameTextStyle: {
-                        fontWeight: 'bold',
-                        fontSize: 19
-                    },
-                    // data: this.weatherdata.weather
-                    data: ["小雨", "小雨", "阴", "小雨", "多云", "小雨", "小雨"]
-                }
-            ],
-            yAxis: {
-                type: 'value',
-                show: false,
-                axisLabel: {
-                    formatter: '{value} °C',
-                    color: 'white'
-                }
-            },
-            series: [
-                {
-                    name: '最高气温',
-                    type: 'line',
-                    data: ["16.3", "16.2", "17.6", "14.2", "17.6", "15.7", "14.3"],
-                    symbol: 'emptyCircle',
-                    symbolSize: 10,
-                    showSymbol: true,
-                    smooth: true,
-                    itemStyle: {
-                        normal: {
-                            color: '#C95843'
-                        }
-                    },
-                    label: {
-                        show: true,
-                        position: 'top',
-                        // color: 'white',
-                        formatter: '{c} °C'
-                    },
-                    lineStyle: {
-                        width: 1,
-                        // color: 'white'
-                    },
-                    areaStyle: {
-                        opacity: 1,
-                        color: 'transparent'
-                    }
-                },
-
-                {
-                    name: '最低气温',
-                    type: 'line',
-                    data: ["13.4", "12.8", "13.5", "12.5", "12.4", "13.2", "13"],
-                    symbol: 'emptyCircle',
-                    symbolSize: 10,
-                    showSymbol: true,
-                    smooth: true,
-                    itemStyle: {
-                        normal: {
-                            color: 'blue'
-                        }
-                    },
-                    label: {
-                        show: true,
-                        position: 'bottom',
-                        // color: 'white',
-                        formatter: '{c} °C'
-                    },
-                    lineStyle: {
-                        width: 1,
-                        // color: 'white'
-                    },
-                    areaStyle: {
-                        opacity: 1,
-                        color: 'transparent'
-                    }
-                }
-            ],
-
+            rich: richs,
+            // rich: {
+            //   0: {
+            //     backgroundColor: {
+            //       // image: require('@/assets/weather_icon/' + this.weatherIconDic[this.weatherdata.weather[0]] + '.png')
+            //       image: 'https://d.scggqx.com/forecast/img/小雨.png'
+            //     },
+            //     height: 40,
+            //     width: 40
+            //   },
+            //   1: {
+            //     backgroundColor: {
+            //       // image: require('@/assets/weather_icon/' + this.weatherIconDic[this.weatherdata.weather[1]] + '.png')
+            //       image: 'https://d.scggqx.com/forecast/img/小雨.png'
+            //     },
+            //     height: 40,
+            //     width: 40
+            //   },
+            //   2: {
+            //     backgroundColor: {
+            //       // image: require('@/assets/weather_icon/' + this.weatherIconDic[this.weatherdata.weather[2]] + '.png')
+            //       image: 'https://d.scggqx.com/forecast/img/阴.png'
+            //     },
+            //     height: 40,
+            //     width: 40
+            //   },
+            //   3: {
+            //     backgroundColor: {
+            //       // image: require('@/assets/weather_icon/' + this.weatherIconDic[this.weatherdata.weather[3]] + '.png')
+            //       image: 'https://d.scggqx.com/forecast/img/小雨.png'
+            //     },
+            //     height: 40,
+            //     width: 40
+            //   },
+            //   4: {
+            //     backgroundColor: {
+            //       // image: require('@/assets/weather_icon/' + this.weatherIconDic[this.weatherdata.weather[4]] + '.png')
+            //       image: 'https://d.scggqx.com/forecast/img/多云.png'
+            //     },
+            //     height: 40,
+            //     width: 40
+            //   },
+            //   5: {
+            //     backgroundColor: {
+            //       // image: require('@/assets/weather_icon/' + this.weatherIconDic[this.weatherdata.weather[5]] + '.png')
+            //       image: 'https://d.scggqx.com/forecast/img/小雨.png'
+            //     },
+            //     height: 40,
+            //     width: 40
+            //   },
+            //   6: {
+            //     backgroundColor: {
+            //       // image: require('@/assets/weather_icon/' + this.weatherIconDic[this.weatherdata.weather[6]] + '.png')
+            //       image: 'https://d.scggqx.com/forecast/img/小雨.png'
+            //     },
+            //     height: 40,
+            //     width: 40
+            //   },
+            //   b: {
+            //     // color: 'white',
+            //     fontSize: 12,
+            //     lineHeight: 30,
+            //     height: 20
+            //   }
+            // }
+          },
+          nameTextStyle: {
+            fontWeight: 'bold',
+            fontSize: 19
+          },
+          data: weathers
+          // data: ["小雨", "小雨", "阴", "小雨", "多云", "小雨", "小雨"]
         }
-
-        if (option && typeof option === 'object') {
-            myChart.setOption(option);
+      ],
+      yAxis: {
+        type: 'value',
+        show: false,
+        axisLabel: {
+          formatter: '{value} °C',
+          color: 'white'
         }
+      },
+      series: [
+        {
+          name: '最高气温',
+          type: 'line',
+          data: highestTemps,
+          // data: ["16.3", "16.2", "17.6", "14.2", "17.6", "15.7", "14.3"],
+          symbol: 'emptyCircle',
+          symbolSize: 10,
+          showSymbol: true,
+          smooth: true,
+          itemStyle: {
+            normal: {
+              color: '#C95843'
+            }
+          },
+          label: {
+            show: true,
+            position: 'top',
+            // color: 'white',
+            formatter: '{c} °C'
+          },
+          lineStyle: {
+            width: 1,
+            // color: 'white'
+          },
+          areaStyle: {
+            opacity: 1,
+            color: 'transparent'
+          }
+        },
 
-        window.addEventListener('resize', myChart.resize);
-    </script>
+        {
+          name: '最低气温',
+          type: 'line',
+          data: lowestTmpes,
+          // data: ["13.4", "12.8", "13.5", "12.5", "12.4", "13.2", "13"],
+          symbol: 'emptyCircle',
+          symbolSize: 10,
+          showSymbol: true,
+          smooth: true,
+          itemStyle: {
+            normal: {
+              color: 'blue'
+            }
+          },
+          label: {
+            show: true,
+            position: 'bottom',
+            // color: 'white',
+            formatter: '{c} °C'
+          },
+          lineStyle: {
+            width: 1,
+            // color: 'white'
+          },
+          areaStyle: {
+            opacity: 1,
+            color: 'transparent'
+          }
+        }
+      ],
+
+    }
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
 </body>
 
 </html>

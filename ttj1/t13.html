@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // let arr = [1, 5, 6, 7, 2, 1, 0, 2, 11, 49, 7];
+
+    const arr1 = [{ name: "srq" }, { name: "jjj" }, { name: "ttt" }, { name: "xxx" }, { name: "uuu" }, { name: "eee" }, { name: "ppp" }, { name: "rrr" }, { name: "ooo" }]
+    let j = 0;
+    let rsArr = [];
+
+    console.log(two(arr1))
+    function two(arr) {
+      for (let i = 0; i < arr.length; i++) {
+        if (i % 2 == 0) {
+          rsArr[j] = [];
+          rsArr[j][0] = arr[i];
+        } else {
+          rsArr[j][1] = arr[i];
+          j++;
+        }
+      }
+      if (arr.length % 2 != 0) {
+        rsArr[j][1] = {};
+      }
+      return rsArr;
+    }
+
+    rsArr = [];
+    j = 0;
+    let tmpArr = [];
+    console.log(two2(arr1))
+    function two2(arr) {
+      for (i = 0; i < arr.length; i++) {
+        if (i % 2 == 0) {
+          tmpArr[0] = arr[i];
+        } else {
+          tmpArr[1] = arr[i];
+          rsArr[j] = tmpArr;
+          j++;
+        }
+      }
+      if (arr.length % 2 != 0) {
+        tmpArr[1] = {};
+        rsArr[j] = tmpArr;
+      };
+      return rsArr;
+    }
+
+  </script>
+</body>
+
+</html>

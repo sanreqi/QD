@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    //project=screen,再多传一个参数encrypt=1
+    let password = 'jaqts01';
+
+    let encrypt = encryptPassword(password);
+
+    console.log(encrypt);
+
+    function randomCoding(len) {
+      let str = "";
+      let code;
+      let arr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+      for (let i = 0; i < len; i++) {
+        code = arr[Math.floor(Math.random() * arr.length)];
+        str += code;
+      }
+
+      return str;
+    }
+
+    function encryptPassword(password) {
+      let encrypt;
+      encrypt = randomCoding(3);
+      encrypt += btoa(password);
+      return encrypt;
+    }
+  </script>
+</body>
+
+</html>
