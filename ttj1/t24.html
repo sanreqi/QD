@@ -135,6 +135,14 @@
 
       //x_y坐标对象数组
       let goList = {};
+      //连续棋子
+      let blockGo = [];
+      //本回合吃掉的棋子
+      let eatedGo = [];
+
+      let prevGo = { "black": "-1_-1", "white": "-1_-1" };
+
+      let onlyGetEatedGo = false;
 
       function initTable() {
         createTable();
@@ -202,12 +210,12 @@
 
         for (let i = 0; i < dot.length; i++) {
           dot[i].addEventListener('click', function () {
+
             let x = this.getAttribute('x');
             let y = this.getAttribute('y');
-            let goKey = x + '_' + y;
-            // 先判断
-            if (!checkExists(x, y)) {
-              // console.log('已经存在棋子');
+            let goKey = getGoKey(x, y);
+
+            if (checkExists(x, y)) {
               return false;
             }
 
@@ -221,18 +229,32 @@
             li.classList.add(config.class);
             li.style.left = `${left}px`;
             li.style.top = `${top}px`;
+            //先不显示
+            li.style.display = 'none';
+            li.setAttribute('loc', goKey)
 
-            // goList.push(goItem);
             ul.append(li);
+
+            //黑白转换
+            // let type = changeTurn();
+            console.log('golist', goList);
+
+
+            if (!canGo(x, y, turn)) {
+              removeGo(goKey);
+              return false;
+            }
+
             //黑白转换
             let type = changeTurn();
 
-            findBehind(x, y, type);
+            eatBehind(x, y, type);
 
-            console.log(blockGo);
-            // console.log(turn);
+            prevGo[config.class] = getGoKey(x, y);
 
-            // console.log(goList);
+            li.style.display = 'block';
+
+            console.log('eated', eatedGo);
           });
         }
       }
@@ -246,15 +268,99 @@
         return t;
       }
 
-      //判断坐标是否存在，存在返回下标
-      function checkExists(x, y) {
-        let goKey = x + '_' + y;
-        if (goList.hasOwnProperty(goKey)) {
-          // console.log('已经存在棋子');
-          return false;
+      function getEatedGo(x, y, type) {
+        console.log('eatgolist', goList);
+        eatedGo = [];
+        findEated(+x - 1, +y, type);
+        findEated(+x, +y + 1, type);
+        findEated(+x + 1, +y, type);
+        findEated(+x, +y - 1, type);
+      }
+
+      function findEated(x, y, type) {
+        blockGo = [];
+        findBlock(x, y, type);
+
+        console.log(x, y, type, blockGo);
+
+        if (blockGo.length === 0) {
+          return true;
+        }
+        if (!hasAir(blockGo)) {
+          //吃掉
+          for (let i = 0; i < blockGo.length; i++) {
+            eatedGo.push(getGoKey(x, y));
+          }
+        }
+      }
+
+      function canGo(x, y, type) {
+        console.log('can go start', x, y, type);
+        let oppType = changeTurn(false);
+        blockGo = [];
+        let goKey = getGoKey(x, y);
+
+        // console.log(x, y, type);
+        findBlock(x, y, type);
+        console.log('blockgo', blockGo);
+
+
+
+        // blockGo加上自己
+        // blockGo.push(goKey);
+
+        // console.log('can go blockGo', blockGo);
+        if (hasAir(blockGo)) {
+          console.log('has air');
+          //有气一定可以下
+          return true;
         }
 
-        return true;
+        getEatedGo(x, y, oppType);
+
+        // onlyGetEatedGo = true;
+        // eatBehind(x, y, type);
+        // onlyGetEatedGo = false;
+
+        // console.log('eatedGo', eatedGo);
+
+
+        console.log('eagolen', eatedGo.length);
+        if (eatedGo.length === 1) {
+          console.log('进入打劫判定');
+          //打劫判定，本方落子的是刚才位置，被吃的对方也是刚才位置，且只吃一个子，神逻辑待优化~~
+          // let oppType = changeTurn(false);
+          console.log('opptype', oppType, type);
+          console.log(prevGo);
+          if (eatedGo[0] == prevGo[oppType]) {
+            console.log('打劫判定失败');
+            return false;
+          }
+        }
+
+        if (eatedGo.length >= 1) {
+          console.log('没气能吃');
+          return true;
+        }
+
+        console.log('不能下');
+
+        return false;
+      }
+
+
+
+      //判断坐标是否存在
+      function checkExists(x, y, type) {
+        // console.log(goList);
+        let goKey = x + '_' + y;
+        if (goList.hasOwnProperty(goKey)) {
+          if (type === undefined || goList[goKey].class === type) {
+            return true;
+          }
+        }
+
+        return false;
       }
 
       function dotHover(ele, fn1, fn2) {
@@ -264,8 +370,7 @@
             let x = this.getAttribute('x');
             let y = this.getAttribute('y');
             // 先判断
-            if (!checkExists(x, y)) {
-              // console.log('已经存在棋子');
+            if (checkExists(x, y)) {
               return false;
             }
             this.style.opacity = 0.8;
@@ -277,34 +382,112 @@
         }
       }
 
-      let blockGo = [];
 
-      function findBehind(x, y, type) {
-        findBlock(x - 1, y);
+
+      function hasAir(blockGoList) {
+        if (blockGoList.length === 0) {
+          return true;
+        }
+
+        let xyArr;
+        let x;
+        let y;
+        for (let i = 0; i < blockGoList.length; i++) {
+          xyArr = blockGoList[i].split('_');
+          x = xyArr[0];
+          y = xyArr[1];
+          //左上右下有没有棋子，或者是否已经出界
+          if (checkLocValid(+x - 1, y) && !checkExists(+x - 1, y)) { //坐标有效，并且没有棋子，说明有气
+            return true;
+          }
+
+          if (checkLocValid(+x, +y + 1) && !checkExists(+x, +y + 1)) { //坐标有效，并且没有棋子，说明有气
+            return true;
+          }
+
+          if (checkLocValid(+x + 1, +y) && !checkExists(+x + 1, +y)) { //坐标有效，并且没有棋子，说明有气
+            return true;
+          }
+
+          if (checkLocValid(+x, +y - 1) && !checkExists(+x, +y - 1)) { //坐标有效，并且没有棋子，说明有气
+            return true;
+          }
+        }
+
+        //没气了
+        return false;
+      }
+
+      function eat(x, y, type) {
+        blockGo = [];
+        findBlock(x, y, type);
+
+        if (blockGo.length === 0) {
+          return true;
+        }
+        if (!hasAir(blockGo)) {
+          //吃掉
+          let selector;
+          for (let i = 0; i < blockGo.length; i++) {
+            //goList删除
+            eatedGo.push(getGoKey(x, y));
+            removeGo(blockGo[i]);
+            // delete goList[blockGo[i]];
+
+            // selector = `#piece ul li[loc="${blockGo[i]}"]`;
+            // document.querySelector(selector).remove();
+            // if (!onlyGetEatedGo) {
+
+            // }
+          }
+          // blockGo被吃
+        } else {
+        }
+      }
+
+      function removeGo(goKey) {
+        delete goList[goKey];
+        selector = `#piece ul li[loc="${goKey}"]`;
+        document.querySelector(selector).remove();
+      }
+
+      function getGoKey(x, y) {
+        return x + '_' + y;
+      }
+
+      function eatBehind(x, y, type) {
+        eatedGo = [];
+
+
+        // if (onlyGetEatedGo) {
+        //   blockGo.push(getGoKey(x, y));
+        // }
+        eat(+x - 1, +y, type);
+        eat(+x, +y + 1, type);
+        eat(+x + 1, +y, type);
+        eat(+x, +y - 1, type);
       }
 
       //从xy找到所有连在一起的，递归
       function findBlock(x, y, type) {
-        if (!checkExists(x, y)) {
-          console.log('sss', x, y);
-          return [];
+        if (!checkExists(x, y, type)) {
+          return;
         }
 
-        //check valid
+        let goKey = getGoKey(x, y);
 
-        let goKey = x + '_' + y;
-        console.log(goKey);
-        console.log(goList);
-        if (goList.hasOwnProperty(goKey) && goList[goKey].class === type) {
-          console.log(1234);
-          blockGo.push = goKey;
-          findBlock(x - 1, y); //左
-          findBlock(x, y + 1); //上
-          findBlock(x + 1, y); //右
-          findBlock(x, y - 1); //下
+        if (blockGo.indexOf(goKey) > -1) {
+          //已经找过
+          return;
         }
+        blockGo.push(goKey);
+        // console.log('blockGo', blockGo);
+        findBlock(+x - 1, y, type); //左
+        findBlock(x, +y + 1, type); //上
+        findBlock(+x + 1, y, type); //右
+        findBlock(x, +y - 1, type); //下
 
-        return [];
+        return;
       }
 
       function checkLocValid(x, y) {
