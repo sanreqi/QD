@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .countdown {
+      width: 240px;
+      height: 305px;
+      margin: 100px auto;
+      text-align: center;
+      line-height: 1;
+      color: #fff;
+      background-color: brown;
+      overflow: hidden;
+    }
+
+    .countdown .next {
+      font-size: 16px;
+      margin: 25px 0 14px;
+    }
+
+    .countdown .title {
+      font-size: 33px;
+    }
+
+    .countdown .tips {
+      margin-top: 80px;
+      font-size: 23px;
+    }
+
+    .countdown .clock {
+      margin: 18px auto 0;
+      width: 142px;
+      overflow: hidden;
+    }
+
+    .countdown span,
+    .countdown i {
+      float: left;
+      display: block;
+      text-align: center;
+      line-height: 34px;
+      font-size: 23px;
+    }
+
+    .countdown .clock span {
+      width: 34px;
+      height: 34px;
+      border-radius: 2px;
+      background-color: #303430;
+    }
+
+    .countdown .clock i {
+      font-style: normal;
+      width: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="countdown">
+    <p class="next">今天是2022年2月22日</p>
+    <p class="title">下班倒计时</p>
+    <p class="clock">
+      <span id="hour"></span><i>:</i>
+      <span id="minute"></span><i>:</i>
+      <span id="second"></span>
+    </p>
+    <p class="tips">18:30:00下课</p>
+  </div>
+  <script>
+    let d = new Date();
+
+    d.getHours();
+    d.getMinutes();
+    d.getSeconds();
+
+
+
+
+    const countdown = document.querySelector('.countdown');
+
+    countdown.style.backgroundColor = getRandomColor(false);
+
+    let hour = document.querySelector('#hour');
+
+    let num = 100;
+
+    setInterval(function () {
+      hour.innerHTML = num--;
+    }, 1000);
+
+
+
+    function getRandomColor(flag = true) {
+      if (flag) {
+        // #777777
+        let str = '#';
+        let arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+        for (let i = 0; i < 6; i++) {
+          str += arr[Math.floor(Math.random() * arr.length)];
+        }
+        return str;
+      } else {
+        //rgb
+        //rgb(255,255,255)
+        let r = Math.floor(Math.random() * 256);
+        let g = Math.floor(Math.random() * 256);
+        let b = Math.floor(Math.random() * 256);
+        let str = `rgb(${r},${g},${b})`;
+        return str;
+      }
+    }
+
+
+  </script>
+</body>
+
+</html>

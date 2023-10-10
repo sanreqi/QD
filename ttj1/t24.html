@@ -72,8 +72,11 @@
       height: 30px;
       transform: translate(-50%, -50%);
       padding: 5px;
-      background-color: white;
-      opacity: 0;
+      /* background-color: white; */
+      /* border: 5px solid transparent; */
+      border: 5px solid none;
+
+
     }
 
     /* todo 写到js */
@@ -193,6 +196,7 @@
             top = cellSize * j
 
             let li = document.createElement('LI');
+            // let 
             li.style.left = `${left}px`;
             li.style.top = `${top}px`;
             li.setAttribute('x', i);
