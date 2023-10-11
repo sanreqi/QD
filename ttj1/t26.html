@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+<<<<<<< HEAD
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -119,6 +120,134 @@
 
 
   </script>
+=======
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            color: #999;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .mi {
+            position: relative;
+            width: 223px;
+            margin: 100px auto;
+        }
+
+        .mi input {
+            width: 223px;
+            height: 48px;
+            /* border: 1px solid #e0e0e0; */
+            outline: none;
+            padding-left: 8px;
+            line-height: 48px;
+            font-size: 14px;
+
+            border: 1px solid #ff6700;
+        }
+
+        .result-list {
+            position: absolute;
+            left: 0;
+            top: 50px;
+            width: 231px;
+            height: 200px;
+            border-left: 1px solid #ff6700;
+            border-bottom: 1px solid #ff6700;
+            border-right: 1px solid #ff6700;
+            overflow: auto;
+            display: none;
+        }
+
+        .result-list ul li {
+            padding-left: 8px;
+            height: 28px;
+            line-height: 28px;
+            font-size: 12px;
+        }
+
+        .result-list ul li:hover {
+            background-color: #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mi">
+        <input type="text" placeholder="小米笔记本" class="search">
+        <div class="result-list">
+            <ul>
+
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // let mi = document.querySelector('.mi');
+        let search = document.querySelector('.search');
+        let li;
+        let gstr;
+        const rul = document.querySelector('.result-list ul');
+        const rlst = document.querySelector('.result-list');
+
+        let goodsList = ['全部商品', '小米11', '小米12', '小米13', '小米14', '小米15', '小米16', '小米17', '小米18', '小米19', '小米20', '小米21', '小米22', '小米23', '小米24', '小米25', '小米26', '小米27', '小米28'];
+
+        search.addEventListener('input', function () {
+            resultEvent(this.value);
+        });
+
+        search.addEventListener('focus', function () {
+            resultEvent(this.value);
+            rlst.style.display = 'block';
+        });
+
+        search.addEventListener('blur', function () {
+            rlst.style.display = 'none';
+        });
+
+        function resultEvent(value) {
+            let lis = document.querySelectorAll('.result-list ul li');
+            for (let i = 0; i < lis.length; i++) {
+                lis[i].remove();
+            }
+            for (let i = 0; i < goodsList.length; i++) {
+                gstr = goodsList[i];
+                console.log(gstr);
+                if (value === '' || gstr.includes(value)) {
+                    li = document.createElement('LI');
+                    li.innerHTML = gstr;
+                    rul.append(li);
+
+                    li.addEventListener('mousedown', function () {
+                        console.log(gstr);
+                        search.value = this.innerHTML;
+                    });
+                }
+            }
+        }
+
+        function a() {
+
+            if (document.activeElement === search) {
+                document.addEventListener('keydown', function () { console.log('down'); });
+            } else {
+                alert(22);
+            }
+        }
+
+
+    </script>
+
+>>>>>>> 2c0abb7f1c5e05a27a4e1fabf2ad3cdbae030430
 </body>
 
 </html>
