@@ -8,12 +8,29 @@
   <title>Document</title>
 
   <style>
+    @font-face {
+      font-family: 'iconfont';
+      src: url('./iconfont/iconfont.woff2?t=1697036414944') format('woff2'),
+        url('./iconfont/iconfont.woff?t=1697036414944') format('woff'),
+        url('./iconfont/iconfont.ttf?t=1697036414944') format('truetype');
+    }
+
+    .iconfont {
+      font-family: "iconfont" !important;
+      font-size: 16px;
+      font-style: normal;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
     * {
       margin: 0;
       padding: 0;
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       box-sizing: border-box;
+      font-size: 14px;
+      font-family: Microsoft YaHei;
     }
 
     li {
@@ -30,7 +47,7 @@
     }
 
     .wrapper {
-      width: 800px;
+      width: 1200px;
       margin: 20px auto 0;
     }
 
@@ -38,37 +55,101 @@
       text-align: center;
     }
 
-    .ban-table {
-      /* background-color: blanchedalmond; */
+    #ban-table {
       display: table;
-      /* position: relative; */
       border-collapse: collapse;
+      margin-top: 20px;
     }
+
+    /* #ban-table .icon-delete {
+      position: absolute;
+      right: 0;
+      top: 0;
+    } */
+
+    /* #ban-table .icon-edit {
+      position: absolute;
+    } */
 
     .row {
       display: table-row;
-      border-collapse: collapse;
+
     }
+
+
 
     .cell {
       display: table-cell;
-      width: 60px;
-      height: 60px;
+      position: relative;
+      width: 160px;
+      height: 36px;
+      line-height: 36px;
+      text-align: center;
       border: 1px solid #b8daff;
-      border-collapse: collapse;
+      overflow: hidden;
+    }
+
+    .icon-delete:before {
+      content: "\e70a";
+      font-size: 18px;
+      cursor: pointer;
+      position: absolute;
+      right: 0;
+      top: 0;
+      /* line-height: 18px; */
+    }
+
+    .icon-edit:before {
+      content: "\e60c";
+      font-size: 18px;
+      cursor: pointer;
+      position: absolute;
+      right: 18px;
+      top: 0;
+      /* line-height: 18px; */
     }
   </style>
 </head>
 
 <body>
   <div class="wrapper">
+
+    <span class="icon-delete iconfont"></span>
+    <span class="icon-edit iconfont"></span>
+
     <h1 class="title">banbanban</h1>
+
+    <div id="search">
+      <input type="text" placeholder="请输入关键字">
+      <button>search</button>
+      <button>add</button>
+    </div>
 
     <div id="ban-table">
       <ul class="row">
-        <li class="cell"></li>
-        <li class="cell"></li>
-        <li class="cell"></li>
+        <li class="cell">
+          AAA
+          <i class="icon-edit iconfont"></i>
+          <i class="icon-delete iconfont"></i>
+        </li>
+        <li class="cell">banbanban</li>
+        <li class="cell">CCC</li>
+        <li class="cell">banbanban</li>
+        <li class="cell">CCC</li>
+      </ul>
+      <ul class="row">
+        <li class="cell">AAA</li>
+        <li class="cell">banbanban</li>
+        <li class="cell">CCC</li>
+        <li class="cell">banbanban</li>
+        <li class="cell">CCC</li>
+      </ul>
+      <ul class="row">
+        <li class="cell">AAA</li>
+        <li class="cell">banbanban</li>
+        <li class="cell">CCC</li>
+        <li class="cell">banbanban</li>
+        <li class="cell">CCC</li>
       </ul>
     </div>
   </div>
@@ -77,8 +158,8 @@
 </body>
 
 <script>
-  prohibition
+  // prohibition
 </script>
-1
+
 
 </html>
