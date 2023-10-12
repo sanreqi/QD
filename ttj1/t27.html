@@ -46,6 +46,54 @@
       outline: none;
     }
 
+    .modal {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      /* background-color: pink; */
+      left: 50%;
+      top: 50px;
+      transform: translateX(-50%);
+      z-index: 1;
+      display: none;
+    }
+
+    .modal-content {
+      position: relative;
+      background-color: #fefefe;
+      margin: auto;
+      padding: 0;
+      border: 1px solid #888;
+      width: 800px;
+      height: 200px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      /* -webkit-animation-name: animatetop;
+      -webkit-animation-duration: 0.4s;
+      animation-name: animatetop;
+      animation-duration: 0.4s */
+    }
+
+    .modal-header {
+      padding: 10px 0;
+      background-color: #5cb85c;
+      color: white;
+      text-align: center;
+    }
+
+    .modal-header h2 {
+      font-size: 20px;
+    }
+
+    .modal-body {
+      padding: 10px 16px;
+    }
+
+    .modal-footer {
+      padding: 2px 16px;
+      background-color: #5cb85c;
+      color: white;
+    }
+
     .wrapper {
       width: 1200px;
       margin: 20px auto 0;
@@ -61,19 +109,8 @@
       margin-top: 20px;
     }
 
-    /* #ban-table .icon-delete {
-      position: absolute;
-      right: 0;
-      top: 0;
-    } */
-
-    /* #ban-table .icon-edit {
-      position: absolute;
-    } */
-
     .row {
       display: table-row;
-
     }
 
 
@@ -89,7 +126,7 @@
       overflow: hidden;
     }
 
-    .icon-delete:before {
+    .cell .icon-delete:before {
       content: "\e70a";
       font-size: 18px;
       cursor: pointer;
@@ -99,7 +136,7 @@
       /* line-height: 18px; */
     }
 
-    .icon-edit:before {
+    .cell .icon-edit:before {
       content: "\e60c";
       font-size: 18px;
       cursor: pointer;
@@ -108,10 +145,50 @@
       top: 0;
       /* line-height: 18px; */
     }
+
+    .form-control {
+      display: block;
+      width: 100%;
+      padding: 0.375rem 0.75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #4c6883;
+      background-color: var(--bs-form-control-bg);
+      background-clip: padding-box;
+      border: 1px solid #dee2e6;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border-radius: 0.375rem;
+      /* transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out; */
+    }
   </style>
 </head>
 
 <body>
+  <div id="ban-modal" class="modal">
+    <!-- 弹窗内容 -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>弹窗头部</h2>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="keyword">ABC好</label>
+          <input class="form-control" type="text" id="keyword">
+        </div>
+
+        <div class=""></div>
+        <p>弹窗文本...</p>
+        <p>弹窗文本...</p>
+      </div>
+      <div class="modal-footer">
+        <h3>弹窗底部</h3>
+      </div>
+    </div>
+  </div>
+
   <div class="wrapper">
 
     <span class="icon-delete iconfont"></span>
@@ -158,7 +235,14 @@
 </body>
 
 <script>
-  // prohibition
+
+  function modal() {
+    const body = document.querySelector('body');
+    const modal = document.querySelector('.modal');
+    body.style.backgroundColor = 'rgba(0,0,0,0.4)';
+    modal.style.display = 'block';
+  }
+  // modal();
 </script>
 
 
